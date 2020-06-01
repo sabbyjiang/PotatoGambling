@@ -938,6 +938,10 @@ function CrossGambling_SlashCmd(msg)
 		Print("", "", "house - Toggles guild house cut");
 		msgPrint = 1;
 	end
+	if (string.sub(msg, 1, 4) == "stat") then
+		PotatoGambling_ShowStats(strsub(msg, 6));
+		msgPrint = 1;
+	end
 	if (msg == "hide") then
 	    GUI:IsShown();
 		GUI:Hide();
@@ -1222,6 +1226,27 @@ function CrossGambling_UnjoinStats(altname)
 		local i, e;
 		for i, e in pairs(CrossGambling["joinstats"]) do
 			ChatFrame1:AddMessage(string.format("currently joined: alt '%s' -> main '%s'", i, e));
+		end
+	end
+end
+
+function PotatoGambling_ShowStats(user)
+	local nameCleaned = user;
+	if(CrossGambling["stats"][nameCleaned] == nil) then
+		nameCleaned = strlower(nameCleaned):gsub("^%l", string.upper);
+	end
+
+	if(CrossGambling["stats"][nameCleaned] == nil) then
+		ChatMsg(string.format("%s has never won or lost a roll", nameCleaned));
+	else
+		-- print(nameCleaned);
+		local d = CrossGambling["stats"][nameCleaned];
+		if(d > 0) then
+			ChatMsg(string.format("%s is currently winning (up by %d)", nameCleaned, d), chatmethod);
+		elseif (d < 0) then
+			ChatMsg(string.format("%s is currently losing (down by %d)", nameCleaned, -d), chatmethod);
+		else
+			ChatMsg(string.format("%s is currently even (exactly 0)", nameCleaned), chatmethod);
 		end
 	end
 end
