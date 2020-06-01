@@ -1,4 +1,4 @@
-package-as: CrossGambling
+package-as: PotatoGambling
 
 ignore:
   - README.md
@@ -6,4 +6,4 @@ ignore:
   - .github
   
 move-folders:
-  CrossGambling/CrossGambling: CrossGambling
+  PotatoGambling/PotatoGambling: PotatoGambling

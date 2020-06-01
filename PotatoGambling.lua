@@ -38,11 +38,11 @@ function CrossGambling1:ConstructMiniMapIcon()
 	self.minimap.icon_data = LibStub("LibDataBroker-1.1"):NewDataObject("CrossGamblingIcon", {
 		type = "data source",
 		text = "CrossGambling",
-		icon = "Interface\\AddOns\\CrossGambling\\media\\icon",
+		icon = "Interface\\AddOns\\PotatoGambling\\media\\icon",
 		OnClick = Minimap_Toggle,
 
 		OnTooltipShow = function(tooltip)
-			tooltip:AddLine("CrossGambling!",1,1,1)
+			tooltip:AddLine("PotatoGambling!",1,1,1)
 			tooltip:Show()
 		end,
 	})
@@ -51,8 +51,8 @@ function CrossGambling1:ConstructMiniMapIcon()
 	self.minimap.icon:Register("CrossGamblingIcon", self.minimap.icon_data, self.db.global.minimap)
 end
 -- GUI
-local Blank = "Interface\\AddOns\\CrossGambling\\Media\\Blank.tga"
-local Font = "Interface\\AddOns\\CrossGambling\\Media\\PTSans.ttf"
+local Blank = "Interface\\AddOns\\PotatoGambling\\Media\\Blank.tga"
+local Font = "Interface\\AddOns\\PotatoGambling\\Media\\PTSans.ttf"
 local FontColor = {220/255, 220/255, 220/255}
 
 local Backdrop = {
@@ -121,7 +121,7 @@ AdminTop.TopLabel = AdminTop:CreateFontString(nil, "OVERLAY")
 AdminTop.TopLabel:SetPoint("CENTER", AdminTop, "CENTER", 0, -1)
 AdminTop.TopLabel:SetFont(Font, 16)
 AdminTop.TopLabel:SetTextColor(unpack(FontColor))
-AdminTop.TopLabel:SetText("CrossGambling")
+AdminTop.TopLabel:SetText("PotatoGambling")
 AdminTop.TopLabel:SetShadowOffset(1.25, -1.25)
 AdminTop.TopLabel:SetShadowColor(0, 0, 0)
 
@@ -287,7 +287,7 @@ GUI.BottomLabel:SetTextColor(unpack(FontColor))
 GUI.BottomLabel:SetJustifyH("LEFT")
 GUI.BottomLabel:SetShadowOffset(1.25, -1.25)
 GUI.BottomLabel:SetShadowColor(0, 0, 0)
-GUI.BottomLabel:SetText("CrossGambling - Loyal@Stormrage")
+GUI.BottomLabel:SetText("PotatoGambling - Mootater")
 
 
 local EditBoxDown = function(self)
@@ -702,7 +702,7 @@ end)
 
 AdminToggle.Arrow = AdminToggle:CreateFontString(nil, "OVERLAY")
 AdminToggle.Arrow:SetPoint("CENTER", AdminToggle, "CENTER", 0, 0)
-AdminToggle.Arrow:SetFont("Interface\\AddOns\\CrossGambling\\Media\\Arial.ttf", 12)
+AdminToggle.Arrow:SetFont("Interface\\AddOns\\PotatoGambling\\Media\\Arial.ttf", 12)
 AdminToggle.Arrow:SetTextColor(unpack(FontColor))
 AdminToggle.Arrow:SetText("►")
 AdminToggle.Arrow:SetShadowOffset(1.25, -1.25)
@@ -727,7 +727,7 @@ end)
 
 AdminToggle.Arrow = AdminToggle:CreateFontString(nil, "OVERLAY")
 AdminToggle.Arrow:SetPoint("CENTER", AdminToggle, "CENTER", 1, 0)
-AdminToggle.Arrow:SetFont("Interface\\AddOns\\CrossGambling\\Media\\Arial.ttf", 12)
+AdminToggle.Arrow:SetFont("Interface\\AddOns\\PotatoGambling\\Media\\Arial.ttf", 12)
 AdminToggle.Arrow:SetTextColor(unpack(FontColor))
 AdminToggle.Arrow:SetText("◄")
 AdminToggle.Arrow:SetShadowOffset(1.25, -1.25)
@@ -774,7 +774,7 @@ ViewStats.X:SetShadowOffset(1.25, -1.25)
 ViewStats.X:SetShadowColor(0, 0, 0)
 
 function CrossGambling_OnLoad(self)
-	DEFAULT_CHAT_FRAME:AddMessage("|cffffff00<Cross Gambling for Warcraft 8.2.5 and Classic!> loaded /cg to use");
+	DEFAULT_CHAT_FRAME:AddMessage("|cffffff00<Potato Gambling for Warcraft 8.2.5 and Classic!> loaded /pg to use");
 
 	self:RegisterEvent("CHAT_MSG_RAID");
 	self:RegisterEvent("CHAT_MSG_CHANNEL");
@@ -816,7 +816,7 @@ EventFrame:SetScript("OnEvent",function(self,event,msg,sender)
 end);
 
 local function Print(pre, red, text)
-	if red == "" then red = "/CG" end
+	if red == "" then red = "/PG" end
 	DEFAULT_CHAT_FRAME:AddMessage(pre..GREEN_FONT_COLOR_CODE..red..FONT_COLOR_CODE_CLOSE..": "..text)
 end
 
@@ -859,7 +859,7 @@ SetTemplateDark(Top)
 Reset.TopLabel = Top:CreateFontString(nil, "OVERLAY")
 Reset.TopLabel:SetPoint("CENTER", Top, "CENTER", 10, -4)
 Reset.TopLabel:SetFont(Font, 16)
-Reset.TopLabel:SetText("CrossGambling")
+Reset.TopLabel:SetText("PotatoGambling")
 Reset.TopLabel:SetTextColor(unpack(FontColor))
 Reset.TopLabel:SetShadowOffset(1.25, -1.25)
 Reset.TopLabel:SetShadowColor(0, 0, 0)
@@ -922,7 +922,7 @@ function CrossGambling_SlashCmd(msg)
 	local msg = msg:lower();
 	local msgPrint = 0;
 	if (msg == "" or msg == nil) then
-	    Print("", "", "~Following commands for CrossGambling~");
+	    Print("", "", "~Following commands for PotatoGambling~");
 		Print("", "", "show - Shows the frame");
 		Print("", "", "hide - Hides the frame");
 		Print("", "", "channel - Change the custom channel for gambling");
@@ -961,7 +961,7 @@ function CrossGambling_SlashCmd(msg)
 		msgPrint = 1;
 	end
 	if (msg == "resetstats") then
-		Print("", "", "|cffffff00CG stats have now been reset");
+		Print("", "", "|cffffff00PotatoGambling stats have now been reset");
 		CrossGambling_ResetStats();
 		msgPrint = 1;
 	end
@@ -1003,13 +1003,13 @@ function CrossGambling_SlashCmd(msg)
 	end
 
 	if (msgPrint == 0) then
-		Print("", "", "|cffffff00Invalid argument for command /cg");
+		Print("", "", "|cffffff00Invalid argument for command /pg");
 	end
 	
 end
 
-SLASH_CrossGambling1 = "/CrossGambler";
-SLASH_CrossGambling2 = "/cg";
+SLASH_CrossGambling1 = "/PotatoGambler";
+SLASH_CrossGambling2 = "/pg";
 SlashCmdList["CrossGambling"] = CrossGambling_SlashCmd
 
 
@@ -1041,7 +1041,7 @@ function CrossGambling_ParseChatMsg(arg1, arg2)
 end
 
 local function OptionsFormatter(text, prefix)
-	if prefix == "" or prefix == nil then prefix = "/CG" end
+	if prefix == "" or prefix == nil then prefix = "/PG" end
 	DEFAULT_CHAT_FRAME:AddMessage(string.format("%s%s%s: %s", GREEN_FONT_COLOR_CODE, prefix, FONT_COLOR_CODE_CLOSE, text))
 end
 
@@ -1350,7 +1350,7 @@ function CrossGambling_OnClickACCEPTONES()
 		LastCall:Disable();
 		AcceptOnes = "true";
 		local fakeroll = "";
-		ChatMsg(format("%s%s%s%s", "CrossGambling:. User's Roll - (", CrossGambling_EditBox:GetText(), ") - Type 1 to Join  (-1 to withdraw)", fakeroll));
+		ChatMsg(format("%s%s%s%s", "PotatoGambling:. User's Roll - (", CrossGambling_EditBox:GetText(), ") - Type 1 to Join  (-1 to withdraw)", fakeroll));
         CrossGambling["lastroll"] = CrossGambling_EditBox:GetText();
 		theMax = tonumber(CrossGambling_EditBox:GetText());
 		low = theMax+1;
@@ -1369,7 +1369,7 @@ function CrossGambling_OnClickACCEPT501()
 		LastCall:Disable();
 		AcceptOnes = "true";
 		local fakeroll = "";
-		ChatMsg(format("%s%s", "CrossGambling(Muntys Casino): User's Roll ", CrossGambling_EditBox2:GetText()));
+		ChatMsg(format("%s%s", "PotatoGambling(Muntys Casino): User's Roll ", CrossGambling_EditBox2:GetText()));
 		ChatMsg(format("%s%s%s%s", "Type 1 to Join -1 to withdraw ", "Current Bet Is ", CrossGambling_EditBox:GetText()," gold"));
 		CrossGambling["GameMode"] = CrossGambling_EditBox2:GetText();
 		theMax = tonumber(CrossGambling_EditBox2:GetText());
@@ -1783,12 +1783,12 @@ function CrossGambling_Reset()
 		lowplayername = "";
 		RollGame:Disable();
 		LastCall:Disable();
-		Print("", "", "|cffffff00CG has now been reset");
+		Print("", "", "|cffffff00PotatoGambling has now been reset");
 
 end
 
 function CrossGambling_ResetCmd()
-	ChatMsg(".:CrossGambling:. Game has been reset", chatmethod)
+	ChatMsg(".:PotatoGambling:. Game has been reset", chatmethod)
 end
 
 function CrossGambling_EditBox_OnLoad()

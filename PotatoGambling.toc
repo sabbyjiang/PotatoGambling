@@ -1,0 +1,10 @@
+## Interface: 80205
+## Title:|cffff7d0aPotatoGambling
+## Author: Mootater
+## 8.2.5 Maintainer: Mootater
+## Version: 8.2.5
+## DefaultState: Enabled
+## LoadOnDemand: 0
+## Notes: A fun way to lose gold. Or win it.
+## SavedVariables: PotatoGambling
+PotatoGambling.xml
