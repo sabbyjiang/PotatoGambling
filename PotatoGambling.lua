@@ -936,6 +936,7 @@ function CrossGambling_SlashCmd(msg)
 		Print("", "", "low - shows person with current lowest roll");
 		Print("", "", "show - Shows the frame");
 		Print("", "", "hide - Hides the frame");
+		Print("", "", "chat - Changes the chat for gambling. 1 - Raid, 2 - Party, 3 - Guild, 4 - Custom Channel");
 		Print("", "", "channel - Change the custom channel for gambling");
 		Print("", "", "reset - Resets the AddOn");
 		Print("", "", "stat [name] - gets the current standing of the user with name");
@@ -956,6 +957,18 @@ function CrossGambling_SlashCmd(msg)
 	if (string.sub(msg, 1, 7) == "current") then
 		ChatMsg(string.format("The current bet is: %d", CrossGambling_EditBox:GetText()), chatmethod);
 		msgPrint = 1;
+	if (string.sub(msg, 1, 4) == "chat") then
+		local chatMethodNum = tonumber(strsub(msg, 6));
+		if chatMethodNum > 4 or chatMethodNum < 0 then
+			Print("", "", "Invalid chat method number. Please enter 1 - Raid, 2 - Party, 3 - Guild, 4 - Custom Channel");
+		else 
+			chatmethod = chatmethods[chatMethodNum];
+			CrossGambling["chat"] = chatMethodNum;
+			CrossGambling_CHAT_Button:SetText(chatmethod); 
+			Print("", "", string.format("PotatoGambling has been switched to %s", chatmethod));
+		end
+		msgPrint = 1;
+	end
 	end
 	if (string.sub(msg, 1, 4) == "high") then 
 		PotatoGambling_ShowHighest(strsub(msg, 6));
@@ -1144,7 +1157,7 @@ function CrossGambling_OnEvent(self, event, ...)
 		if(not CrossGambling) then
 			CrossGambling = {
 				["active"] = 0,
-				["chat"] = 2,
+				["chat"] = 1,
 				["channel"] = "gambling",
 				["whispers"] = false,
 				["strings"] = { },
