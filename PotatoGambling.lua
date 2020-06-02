@@ -32,6 +32,9 @@ local chatmethods = {
 }
 local chatmethod = chatmethods[1];
 
+function normalizeName(name)
+	return strlower(name):gsub("^%l", string.upper);
+end
 
 function CrossGambling1:ConstructMiniMapIcon() 
 	self.minimap = { }
@@ -1277,7 +1280,7 @@ function PotatoGambling_AddApprovedMember(name)
 		ApprovedMembers = { }
 	end
 
-	local normalizedName = strlower(name):gsub("^%l", string.upper);
+	local normalizedName = normalizeName(name);
 	if (normalizedName ~= nil and normalizedName ~= "") then
 		local userExist = 0;
 		for i=1, table.getn(ApprovedMembers) do
@@ -1303,7 +1306,7 @@ function PotatoGambling_RemoveApprovedMember(name)
 		return;
 	end
 
-	local normalizedName = strlower(name):gsub("^%l", string.upper);
+	local normalizedName = normalizeName(name);
 
 	if (normalizedName ~= nil and normalizedName ~= "") then
 		for i=1, table.getn(ApprovedMembers) do
@@ -1336,27 +1339,27 @@ function PotatoGambling_SetBet(bet)
 		Print("", "", "Invalid option for bet. Please make sure it is a number above 0");
 	else
 		CrossGambling_EditBox:SetText(bet)
-		ChatFrame1:AddMessage(string.format("Bet has been set at %d", bet));
+		ChatMsg(string.format("Bet has been set at %d", bet), chatmethod);
 	end
 end
 
-function PotatoGambling_ShowStats(user)
-	local nameCleaned = user;
-	if(CrossGambling["stats"][nameCleaned] == nil) then
-		nameCleaned = strlower(nameCleaned):gsub("^%l", string.upper);
+function PotatoGambling_ShowStats(name)
+	local normalizedName = name;
+	if(CrossGambling["stats"][normalizedName] == nil) then
+		normalizedName = normalizeName(name);
 	end
 
-	if(CrossGambling["stats"][nameCleaned] == nil) then
-		ChatMsg(string.format("%s has never won or lost a roll", nameCleaned));
+	if(CrossGambling["stats"][normalizedName] == nil) then
+		ChatMsg(string.format("%s has never won or lost a roll", normalizedName));
 	else
-		-- print(nameCleaned);
-		local d = CrossGambling["stats"][nameCleaned];
+		-- print(normalizedName);
+		local d = CrossGambling["stats"][normalizedName];
 		if(d > 0) then
-			ChatMsg(string.format("%s is currently winning (up by %d)", nameCleaned, d), chatmethod);
+			ChatMsg(string.format("%s is currently winning (up by %d)", normalizedName, d), chatmethod);
 		elseif (d < 0) then
-			ChatMsg(string.format("%s is currently losing (down by %d)", nameCleaned, -d), chatmethod);
+			ChatMsg(string.format("%s is currently losing (down by %d)", normalizedName, -d), chatmethod);
 		else
-			ChatMsg(string.format("%s is currently even (exactly 0)", nameCleaned), chatmethod);
+			ChatMsg(string.format("%s is currently even (exactly 0)", normalizedName), chatmethod);
 		end
 	end
 end
