@@ -932,6 +932,8 @@ function CrossGambling_SlashCmd(msg)
 		Print("", "", "new - starts new gamble");
 		Print("", "", "last call - sends last call message to member");
 		Print("", "", "roll - starts the rolls");
+		Print("", "", "high - shows person with current highest roll");
+		Print("", "", "low - shows person with current lowest roll");
 		Print("", "", "show - Shows the frame");
 		Print("", "", "hide - Hides the frame");
 		Print("", "", "channel - Change the custom channel for gambling");
@@ -953,6 +955,14 @@ function CrossGambling_SlashCmd(msg)
 	end
 	if (string.sub(msg, 1, 7) == "current") then
 		ChatMsg(string.format("The current bet is: %d", CrossGambling_EditBox:GetText()), chatmethod);
+		msgPrint = 1;
+	end
+	if (string.sub(msg, 1, 4) == "high") then 
+		PotatoGambling_ShowHighest(strsub(msg, 6));
+		msgPrint = 1;
+	end
+	if (string.sub(msg, 1, 3) == "low") then 
+		PotatoGambling_ShowLowest(strsub(msg, 5));
 		msgPrint = 1;
 	end
 	if (string.sub(msg, 1, 6) == "remove") then 
@@ -1348,6 +1358,22 @@ function PotatoGambling_AddApprovedMember(name)
 		end
 	else
 		Print("", "", "|cffffff00Error: No name provided.");
+	end
+end
+
+function PotatoGambling_ShowHighest()
+	if AcceptRolls == "true" and totalrolls > 0 then
+		ChatMsg(string.format("%s has the current highest roll of: %d", highplayername, high));
+	else
+		Print("", "", "No rolls yet")
+	end
+end
+
+function PotatoGambling_ShowLowest()
+	if AcceptRolls == "true" and totalrolls > 0 then
+		ChatMsg(string.format("%s has the current loweset roll of: %d", lowplayername, low));
+	else
+		Print("", "", "No rolls yet")
 	end
 end
 
