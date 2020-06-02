@@ -995,7 +995,7 @@ function CrossGambling_SlashCmd(msg)
 		msgPrint = 1;
 	end
 	if (msg == "last call") then
-		ChatMsg("Last Call to join!");
+		ChatMsg("Last call to join!");
 		LastCall:Enable();
 		RollGame:Enable();
 		msgPrint = 1;
