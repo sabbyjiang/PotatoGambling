@@ -924,6 +924,9 @@ function CrossGambling_SlashCmd(msg)
 	if (msg == "" or msg == nil) then
 	    Print("", "", "~Following commands for PotatoGambling~");
 		Print("", "", "bet [#]- sets the bet at the #");
+		Print("", "", "new - starts new gamble");
+		Print("", "", "last call - sends last call message to member");
+		Print("", "", "roll - starts the rolls");
 		Print("", "", "show - Shows the frame");
 		Print("", "", "hide - Hides the frame");
 		Print("", "", "channel - Change the custom channel for gambling");
@@ -953,6 +956,20 @@ function CrossGambling_SlashCmd(msg)
 	if(msg == "list members") then
 		PotatoGambling_ListApprovedMembers();
 		msgPrint = 1; 
+	end
+	if (msg == "new") then
+		CrossGambling_OnClickACCEPTONES();
+		msgPrint = 1;
+	end
+	if (msg == "last call") then
+		ChatMsg("Last Call to join!");
+		LastCall:Enable();
+		RollGame:Enable();
+		msgPrint = 1;
+	end
+	if (msg == "open") then
+		CrossGambling_OnClickROLL();
+		msgPrint = 1;
 	end
 	if (string.sub(msg, 1, 3) == "bet") then
 		PotatoGambling_SetBet(strsub(msg, 5));
