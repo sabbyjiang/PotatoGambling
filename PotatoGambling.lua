@@ -1117,7 +1117,7 @@ function PotatoGambling_GetStat(msg, nameAndRealm)
 
 	local normalizedName = normalizeName(name);
 
-	if (string.sub(msg, 1, 10) == "my pg stat") then
+	if (string.sub(msg, 1, 5) == "pg me" and string.sub(msg, 6) == "") then
 		PotatoGambling_ShowStats(normalizedName);
 	end
 end
