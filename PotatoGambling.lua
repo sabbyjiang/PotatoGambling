@@ -1692,7 +1692,7 @@ end
 function CrossGambling_Add(name)
 	local charname, realmname = strsplit("-",name);
 	local insname = strlower(charname);
-	if (insname ~= nil or insname ~= "") then
+	if (insname ~= nil and insname ~= "") then
 		local found = 0;
 		for i=1, table.getn(CrossGambling.strings) do
 		  	if CrossGambling.strings[i] == insname then
@@ -1709,7 +1709,7 @@ end
 function CrossGambling_ChkBan(name)
 	local charname, realmname = strsplit("-",name);
 	local insname = strlower(charname);
-	if (insname ~= nil or insname ~= "") then
+	if (insname ~= nil and insname ~= "") then
 		for i=1, table.getn(CrossGambling.bans) do
 			if strlower(CrossGambling.bans[i]) == strlower(insname) then
 				return 1
@@ -1722,7 +1722,7 @@ end
 function CrossGambling_AddBan(name)
 	local charname, realmname = strsplit("-",name);
 	local insname = strlower(charname);
-	if (insname ~= nil or insname ~= "") then
+	if (insname ~= nil and insname ~= "") then
 		local banexist = 0;
 		for i=1, table.getn(CrossGambling.bans) do
 			if CrossGambling.bans[i] == insname then
@@ -1744,7 +1744,7 @@ end
 function CrossGambling_RemoveBan(name)
 	local charname, realmname = strsplit("-",name);
 	local insname = strlower(charname);
-	if (insname ~= nil or insname ~= "") then
+	if (insname ~= nil and insname ~= "") then
 		for i=1, table.getn(CrossGambling.bans) do
 			if strlower(CrossGambling.bans[i]) == strlower(insname) then
 				table.remove(CrossGambling.bans, i)
@@ -1760,7 +1760,7 @@ end
 function CrossGambling_AddTie(name, tietable)
 	local charname, realmname = strsplit("-",name);
 	local insname = strlower(charname);
-	if (insname ~= nil or insname ~= "") then
+	if (insname ~= nil and insname ~= "") then
 		local found = 0;
 		for i=1, table.getn(tietable) do
 		  	if tietable[i] == insname then
