@@ -931,6 +931,7 @@ function CrossGambling_SlashCmd(msg)
 		Print("", "", "hide - Hides the frame");
 		Print("", "", "channel - Change the custom channel for gambling");
 		Print("", "", "reset - Resets the AddOn");
+		Print("", "", "stat [name] - gets the current standing of the user with name");
 		Print("", "", "add [name] - add member to approved list to set the next bet");
 		Print("", "", "list members - lists members that are approved to set bets");
 		Print("", "", "remove [name] - remove the member from approved list to set the next bet");
