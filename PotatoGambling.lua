@@ -926,11 +926,11 @@ function CrossGambling_SlashCmd(msg)
 	local msg = msg:lower();
 	local msgPrint = 0;
 	if (msg == "" or msg == nil) then
-	    Print("", "", "~Following commands for PotatoGambling~");
+		Print("", "", "~Following commands for PotatoGambling~");
 		Print("", "", "bet [#]- sets the bet at the #");
 		Print("", "", "current - see what the current bet is");
 		Print("", "", "new - starts new gamble");
-		Print("", "", "last call - sends last call message to member");
+		Print("", "", "last - sends last call message to member");
 		Print("", "", "roll - starts the rolls");
 		Print("", "", "high - shows person with current highest roll");
 		Print("", "", "low - shows person with current lowest roll");
@@ -994,7 +994,7 @@ function CrossGambling_SlashCmd(msg)
 		CrossGambling_OnClickACCEPTONES();
 		msgPrint = 1;
 	end
-	if (msg == "last call") then
+	if (msg == "last") then
 		ChatMsg("Last call to join!");
 		LastCall:Enable();
 		RollGame:Enable();
@@ -1110,7 +1110,7 @@ function PotatoGambling_ParseChatForBet(msg, nameAndRealm)
 			ChatMsg("Sorry, you're not approved to set the bet", chatmethod);
 		end
 	end
-		end
+end
 
 function PotatoGambling_GetStat(msg, nameAndRealm)
 	local name, realmName = strsplit("-",nameAndRealm);
@@ -1703,9 +1703,9 @@ function CrossGambling_Report()
 	if (goldowed ~= 0) then
 		lowname = lowname:gsub("^%l", string.upper)
 		highname = highname:gsub("^%l", string.upper)
-local string3 = string.format("%s owes %s %s gold! %s ", lowname, highname, (GameMode2), "Congrats");	
+		local string3 = string.format("%s owes %s %s gold! %s ", lowname, highname, (GameMode2), "Congrats");	
 
-	if (CrossGambling["isHouseCut"] and houseCut > 1) then
+		if (CrossGambling["isHouseCut"] and houseCut > 1) then
 			string3 = string.format("%s owes %s %s gold and %s gold to the guild bank!", lowname, highname, (GameMode2), (houseCut));
 		end
 
@@ -1716,6 +1716,7 @@ local string3 = string.format("%s owes %s %s gold! %s ", lowname, highname, (Gam
 	else
 		ChatMsg("It was a tie! No payouts on this roll!");
 	end
+	AcceptBidRequest = "true";
 end
 
 
