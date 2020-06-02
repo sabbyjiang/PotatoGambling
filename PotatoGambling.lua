@@ -1667,13 +1667,13 @@ end
 
 function CrossGambling_ListBan()
 	local bancnt = 0;
-	Print("", "", "|cffffff00To ban do /cg ban (Name) or to unban /cg unban (Name) - The Current Bans:");
+	Print("", "", "|cffffff00To ban do /pg ban (Name) or to unban /pg unban (Name) - The Current Bans:");
 	for i=1, table.getn(CrossGambling.bans) do
 		bancnt = 1;
 		DEFAULT_CHAT_FRAME:AddMessage(strjoin("|cffffff00", "...", tostring(CrossGambling.bans[i])));
 	end
 	if (bancnt == 0) then
-		DEFAULT_CHAT_FRAME:AddMessage("|cffffff00To ban do /cg ban (Name) or to unban /cg unban (Name).");
+		DEFAULT_CHAT_FRAME:AddMessage("|cffffff00To ban do /pg ban (Name) or to unban /pg unban (Name).");
 	end
 end
 
