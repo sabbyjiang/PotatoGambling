@@ -923,6 +923,7 @@ function CrossGambling_SlashCmd(msg)
 	local msgPrint = 0;
 	if (msg == "" or msg == nil) then
 	    Print("", "", "~Following commands for PotatoGambling~");
+		Print("", "", "bet [#]- sets the bet at the #");
 		Print("", "", "show - Shows the frame");
 		Print("", "", "hide - Hides the frame");
 		Print("", "", "channel - Change the custom channel for gambling");
@@ -936,6 +937,10 @@ function CrossGambling_SlashCmd(msg)
 		Print("", "", "unban - Unban's the user");
 		Print("", "", "listban - Shows ban list");
 		Print("", "", "house - Toggles guild house cut");
+		msgPrint = 1;
+	end
+	if (string.sub(msg, 1, 3) == "bet") then
+		PotatoGambling_SetBet(strsub(msg, 5));
 		msgPrint = 1;
 	end
 	if (string.sub(msg, 1, 4) == "stat") then
@@ -1227,6 +1232,17 @@ function CrossGambling_UnjoinStats(altname)
 		for i, e in pairs(CrossGambling["joinstats"]) do
 			ChatFrame1:AddMessage(string.format("currently joined: alt '%s' -> main '%s'", i, e));
 		end
+	end
+end
+
+
+function PotatoGambling_SetBet(bet)
+	if(string.match(bet, "^%d+$") == nil) then
+		Print("", "", bet);
+		Print("", "", "Invalid option for bet. Please make sure it is a number above 0");
+	else
+		CrossGambling_EditBox:SetText(bet)
+		ChatFrame1:AddMessage(string.format("Bet has been set at %d", bet));
 	end
 end
 
