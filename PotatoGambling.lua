@@ -1112,6 +1112,18 @@ function PotatoGambling_ParseChatForBet(msg, nameAndRealm)
 	end
 end
 
+function PotatoGambling_ParseChatForRollStat(msg, nameAndRealm)
+	local name, realmName = strsplit("-",nameAndRealm);
+
+	local normalizedName = normalizeName(name);
+
+	if (string.sub(msg, 1, 7) == "pg high" and string.sub(msg, 8) == "") then 
+		PotatoGambling_ShowHighest();
+	elseif (string.sub(msg, 1, 6) == "pg low"  and string.sub(msg, 7) == "") then
+		PotatoGambling_ShowLowest();
+	end
+end
+
 function PotatoGambling_GetStat(msg, nameAndRealm)
 	local name, realmName = strsplit("-",nameAndRealm);
 
@@ -1242,6 +1254,28 @@ function CrossGambling_OnEvent(self, event, ...)
 		local msg,_,_,_,name,_,_,_,channelName = ...
 		if channelName == CrossGambling["channel"] then
 			PotatoGambling_ParseChatForBet(msg, name)
+		end
+	end
+
+	if ((event == "CHAT_MSG_RAID_LEADER" or event == "CHAT_MSG_RAID") and AcceptRolls == "true" and CrossGambling["chat"] == 1) then
+		local msg, _,_,_,name = ... -- name no realm
+		PotatoGambling_ParseChatForRollStat(msg, name)
+	end
+	
+	if ((event == "CHAT_MSG_PARTY_LEADER" or event == "CHAT_MSG_PARTY") and AcceptRolls == "true" and CrossGambling["chat"] == 2) then
+		local msg, name = ... -- name no realm
+		PotatoGambling_ParseChatForRollStat(msg, name)
+	end
+	
+    if (event == "CHAT_MSG_GUILD" and AcceptRolls == "true" and CrossGambling["chat"] == 3) then
+		local msg, name = ... -- name no realm
+		PotatoGambling_ParseChatForRollStat(msg, name)
+	end
+	
+	if event == "CHAT_MSG_CHANNEL" and AcceptRolls == "true" and CrossGambling["chat"] == 4 then
+		local msg,_,_,_,name,_,_,_,channelName = ...
+		if channelName == CrossGambling["channel"] then
+			PotatoGambling_ParseChatForRollStat(msg, name)
 		end
 	end
 
