@@ -928,6 +928,9 @@ function CrossGambling_SlashCmd(msg)
 		Print("", "", "hide - Hides the frame");
 		Print("", "", "channel - Change the custom channel for gambling");
 		Print("", "", "reset - Resets the AddOn");
+		Print("", "", "add [name] - add member to approved list to set the next bet");
+		Print("", "", "list members - lists members that are approved to set bets");
+		Print("", "", "remove [name] - remove the member from approved list to set the next bet");
 		Print("", "", "fullstats - list full stats");
 		Print("", "", "resetstats - Resets the stats");
 		Print("", "", "joinstats [main] [alt] - Apply [alt]'s win/losses to [main]");
@@ -938,6 +941,18 @@ function CrossGambling_SlashCmd(msg)
 		Print("", "", "listban - Shows ban list");
 		Print("", "", "house - Toggles guild house cut");
 		msgPrint = 1;
+	end
+	if (string.sub(msg, 1, 6) == "remove") then 
+		PotatoGambling_RemoveApprovedMember(strsub(msg, 8));
+		msgPrint = 1;
+	end
+	if (string.sub(msg, 1, 3) == "add") then 
+		PotatoGambling_AddApprovedMember(strsub(msg, 5));
+		msgPrint = 1;
+	end
+	if(msg == "list members") then
+		PotatoGambling_ListApprovedMembers();
+		msgPrint = 1; 
 	end
 	if (string.sub(msg, 1, 3) == "bet") then
 		PotatoGambling_SetBet(strsub(msg, 5));
@@ -1073,6 +1088,7 @@ function CrossGambling_OnEvent(self, event, ...)
 				["lowtie"] = { },
 				["hightie"] = { },
 				["bans"] = { },
+				["members"] = { },
 				
 			}
 		-- fix older legacy items for new chat channels.  Probably need to iterate through each to see if it should be set.
@@ -1235,6 +1251,63 @@ function CrossGambling_UnjoinStats(altname)
 	end
 end
 
+function PotatoGambling_AddApprovedMember(name)
+	if(CrossGambling["members"] == nil) then
+		CrossGambling["members"] = { }
+	end
+
+	local normalizedName = strlower(name):gsub("^%l", string.upper);
+	if (normalizedName ~= nil and normalizedName ~= "") then
+		local userExist = 0;
+		for i=1, table.getn(CrossGambling["members"]) do
+			if CrossGambling["members"][i] == normalizedName then
+				Print("", "", string.format("|cffffff00Unable to add to approved list - %s already approved.", normalizedName));
+				userExist = 1;
+			end
+		end
+		if (userExist == 0) then
+			table.insert(CrossGambling["members"], normalizedName);
+			Print("", "", string.format("|cffffff00%s is now approved to set a bet!", normalizedName));
+			local string3 = strjoin(" ", "", "User approved to set bet! -> ",normalizedName, "!")
+			DEFAULT_CHAT_FRAME:AddMessage(strjoin("|cffffff00", string3));
+		end
+	else
+		Print("", "", "|cffffff00Error: No name provided.");
+	end
+end
+
+function PotatoGambling_RemoveApprovedMember(name)
+	if(CrossGambling["members"] == nil) then
+		Print("", "", "You have no approved members to remove");
+		return;
+	end
+
+	local normalizedName = strlower(name):gsub("^%l", string.upper);
+
+	if (normalizedName ~= nil and normalizedName ~= "") then
+		for i=1, table.getn(CrossGambling["members"]) do
+			if CrossGambling["members"][i] == normalizedName then
+				table.remove(CrossGambling["members"], i)
+				Print("", "", string.format("|cffffff00%s removed from approved members successfully.", normalizedName));
+				return;
+			end
+		end
+		Print("", "", string.format("|cffffff00Error: No approved member found by name %s.", normalizedName));
+	else
+		Print("", "", "|cffffff00Error: No name provided.");
+	end
+end
+
+function PotatoGambling_ListApprovedMembers()
+	if (CrossGambling["members"] == nil or (type(CrossGambling["members"] == "table" and table.getn(CrossGambling["members"])) == 0)) then
+		Print("", "", "You have no approved members currently");
+	else
+		Print("", "", "--- PotatoGambling Approved Members ---");
+		for i=1, table.getn(CrossGambling["members"]) do
+			Print("", "", CrossGambling["members"][i]);
+		end
+	end
+end
 
 function PotatoGambling_SetBet(bet)
 	if(string.match(bet, "^%d+$") == nil) then
