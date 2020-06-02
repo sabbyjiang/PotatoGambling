@@ -6,5 +6,5 @@
 ## DefaultState: Enabled
 ## LoadOnDemand: 0
 ## Notes: A fun way to lose gold. Or win it.
-## SavedVariables: PotatoGambling
+## SavedVariables: CrossGambling, ApprovedMembers
 PotatoGambling.xml
