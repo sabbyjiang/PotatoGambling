@@ -1060,6 +1060,26 @@ SlashCmdList["CrossGambling"] = CrossGambling_SlashCmd
 
 
 
+function PotatoGambling_ParseChatForBet(msg, nameAndRealm)
+	local name, realmName = strsplit("-",nameAndRealm);
+
+	local normalizedName = normalizeName(name);
+
+	local userExist = false;
+	for i=1, table.getn(ApprovedMembers) do
+		if ApprovedMembers[i] == normalizedName then
+			userExist = true;
+		end
+	end
+	if (string.sub(msg, 1, 3) == "bet") then 
+		if userExist == true then
+			PotatoGambling_SetBet(string.sub(msg, 5));
+		else
+			ChatMsg("Sorry, you're approved to set the bet", chatmethod);
+		end
+	end
+end
+
 function CrossGambling_ParseChatMsg(arg1, arg2)
 	if (arg1 == "1") then
 		if(CrossGambling_ChkBan(tostring(arg2)) == 0) then
@@ -1102,6 +1122,8 @@ function CrossGambling_OnEvent(self, event, ...)
 		CrossGambling_EditBox2:SetJustifyH("CENTER");
 		if(ApprovedMembers == nil) then
 			ApprovedMembers = { };
+			local name, realm = UnitName("player");
+			table.insert(ApprovedMembers, name);
 		end
 
 		if(not CrossGambling) then
@@ -1155,6 +1177,29 @@ function CrossGambling_OnEvent(self, event, ...)
 
 		
 			
+		end
+	end
+
+
+	if ((event == "CHAT_MSG_RAID_LEADER" or event == "CHAT_MSG_RAID") and AcceptBidRequest == "true" and CrossGambling["chat"] == 1) then
+		local msg, _,_,_,name = ... -- name no realm
+		PotatoGambling_ParseChatForBet(msg, name)
+	end
+	
+	if ((event == "CHAT_MSG_PARTY_LEADER" or event == "CHAT_MSG_PARTY") and AcceptBidRequest == "true" and CrossGambling["chat"] == 2) then
+		local msg, name = ... -- name no realm
+		PotatoGambling_ParseChatForBet(msg, name)
+	end
+	
+    if (event == "CHAT_MSG_GUILD" and AcceptBidRequest == "true" and CrossGambling["chat"] == 3) then
+		local msg, name = ... -- name no realm
+		PotatoGambling_ParseChatForBet(msg, name)
+	end
+	
+	if event == "CHAT_MSG_CHANNEL" and AcceptBidRequest == "true" and CrossGambling["chat"] == 4 then
+		local msg,_,_,_,name,_,_,_,channelName = ...
+		if channelName == CrossGambling["channel"] then
+			PotatoGambling_ParseChatForBet(msg, name)
 		end
 	end
 
