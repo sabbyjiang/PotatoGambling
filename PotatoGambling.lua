@@ -1305,7 +1305,7 @@ function CrossGambling_OnClickSTATS(full)
 		end
 	end
 
-	DEFAULT_CHAT_FRAME:AddMessage("--- CrossGambling Stats ---", chatmethod);
+	DEFAULT_CHAT_FRAME:AddMessage("--- PotatoGambling Stats ---", chatmethod);
 
 	if full then
 		for k = 0,  #sortlistamount do
@@ -1391,7 +1391,7 @@ function CrossGambling_OnClickACCEPTONES()
 		LastCall:Disable();
 		AcceptOnes = "true";
 		local fakeroll = "";
-		ChatMsg(format("%s%s%s%s", "PotatoGambling:. User's Roll - (", CrossGambling_EditBox:GetText(), ") - Type 1 to Join  (-1 to withdraw)", fakeroll));
+		ChatMsg(format("%s%s%s%s", "PotatoGambling: Current Bet - (", CrossGambling_EditBox:GetText(), ") - Type 1 to Join  (-1 to withdraw)", fakeroll));
         CrossGambling["lastroll"] = CrossGambling_EditBox:GetText();
 		theMax = tonumber(CrossGambling_EditBox:GetText());
 		low = theMax+1;
