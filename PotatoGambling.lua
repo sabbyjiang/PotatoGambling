@@ -928,6 +928,7 @@ function CrossGambling_SlashCmd(msg)
 	if (msg == "" or msg == nil) then
 	    Print("", "", "~Following commands for PotatoGambling~");
 		Print("", "", "bet [#]- sets the bet at the #");
+		Print("", "", "current - see what the current bet is");
 		Print("", "", "new - starts new gamble");
 		Print("", "", "last call - sends last call message to member");
 		Print("", "", "roll - starts the rolls");
@@ -948,6 +949,10 @@ function CrossGambling_SlashCmd(msg)
 		Print("", "", "unban - Unban's the user");
 		Print("", "", "listban - Shows ban list");
 		Print("", "", "house - Toggles guild house cut");
+		msgPrint = 1;
+	end
+	if (string.sub(msg, 1, 7) == "current") then
+		ChatMsg(string.format("The current bet is: %d", CrossGambling_EditBox:GetText()), chatmethod);
 		msgPrint = 1;
 	end
 	if (string.sub(msg, 1, 6) == "remove") then 
