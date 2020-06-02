@@ -1,5 +1,6 @@
 CrossGambling1 = LibStub("AceAddon-3.0"):NewAddon("CrossGambling1")
 local CrossGambling1	= LibStub("AceAddon-3.0"):GetAddon("CrossGambling1")
+local AcceptBidRequest = "true";
 local AcceptOnes = "false";
 local AcceptRolls = "false";
 local HousePercent = 8;
@@ -1486,6 +1487,7 @@ function CrossGambling_OnClickACCEPTONES()
 		CrossGambling_Reset();
 		RollGame:Disable();
 		LastCall:Disable();
+		AcceptBidRequest = "false";
 		AcceptOnes = "true";
 		local fakeroll = "";
 		ChatMsg(format("%s%s%s%s", "PotatoGambling: Current Bet - (", CrossGambling_EditBox:GetText(), ") - Type 1 to Join  (-1 to withdraw)", fakeroll));
@@ -1901,6 +1903,7 @@ function CrossGambling_Reset()
 		CrossGambling["strings"] = { };
 		CrossGambling["lowtie"] = { };
 		CrossGambling["hightie"] = { };
+		AcceptBidRequest = "true";
 		AcceptOnes = "false"
 		AcceptRolls = "false"
 		totalrolls = 0
