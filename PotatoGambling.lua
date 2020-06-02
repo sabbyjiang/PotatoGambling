@@ -1103,7 +1103,9 @@ function PotatoGambling_ParseChatForBet(msg, nameAndRealm)
 		if userExist == true then
 			PotatoGambling_SetBet(string.sub(msg, 5));
 		else
-			ChatMsg("Sorry, you're approved to set the bet", chatmethod);
+			ChatMsg("Sorry, you're not approved to set the bet", chatmethod);
+		end
+	end
 		end
 
 function PotatoGambling_GetStat(msg, nameAndRealm)
