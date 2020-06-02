@@ -1000,6 +1000,10 @@ function CrossGambling_SlashCmd(msg)
 		RollGame:Enable();
 		msgPrint = 1;
 	end
+	if (msg == "roll") then
+		CrossGambling_OnClickROLL()
+		msgPrint = 1;
+	end
 	if (msg == "open") then
 		CrossGambling_OnClickROLL();
 		msgPrint = 1;
