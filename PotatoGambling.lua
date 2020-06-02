@@ -1162,7 +1162,7 @@ function CrossGambling_OnEvent(self, event, ...)
 		CrossGambling_ParseChatMsg(msg, name)
 	end
 
-    if ((event == "CHAT_MSG_GUILD" or event == "CHAT_MSG_GUILD")and AcceptOnes=="true" and CrossGambling["chat"] == 3) then
+    if (event == "CHAT_MSG_GUILD" and AcceptOnes=="true" and CrossGambling["chat"] == 3) then
 		local msg, name = ... -- name no realm
 		CrossGambling_ParseChatMsg(msg, name)
 	end
