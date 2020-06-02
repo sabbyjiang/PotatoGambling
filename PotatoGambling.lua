@@ -957,6 +957,7 @@ function CrossGambling_SlashCmd(msg)
 	if (string.sub(msg, 1, 7) == "current") then
 		ChatMsg(string.format("The current bet is: %d", CrossGambling_EditBox:GetText()), chatmethod);
 		msgPrint = 1;
+	end
 	if (string.sub(msg, 1, 4) == "chat") then
 		local chatMethodNum = tonumber(strsub(msg, 6));
 		if chatMethodNum > 4 or chatMethodNum < 0 then
@@ -968,7 +969,6 @@ function CrossGambling_SlashCmd(msg)
 			Print("", "", string.format("PotatoGambling has been switched to %s", chatmethod));
 		end
 		msgPrint = 1;
-	end
 	end
 	if (string.sub(msg, 1, 4) == "high") then 
 		PotatoGambling_ShowHighest(strsub(msg, 6));
